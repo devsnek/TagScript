@@ -1,12 +1,15 @@
 const chevrotain = require('chevrotain');
+const chalk = require('chalk');
 
-Array.prototype.__defineGetter__('last', function () {
-  return this[this.length - 1];
-});
+Object.defineProperty(Array.prototype, 'last', { // eslint-disable-line
+  get () {
+    return this[this.length - 1];
+  }
+})
 
 const Lexer = chevrotain.Lexer;
 
-module.exports = (input, allTokens) => {
+module.exports = (input, allTokens, highlight) => {
   return new Promise((resolve, reject) => {
     const SelectLexer = new Lexer(Object.values(allTokens), true);
 
@@ -22,6 +25,7 @@ module.exports = (input, allTokens) => {
     let lexed = tokenize(input);
     let tokens = lexed.tokens;
 
+    let highlighted = '';
     let scope = [];
     let run = [];
     let lastEX = 0;
@@ -42,6 +46,7 @@ module.exports = (input, allTokens) => {
     }
 
     tokens.forEach(token => {
+      highlighted += chalk[allTokens[token.constructor.name].COLOR](token.image);
       switch (token.constructor.name) {
         case 'FunctionOpen':
           if (!scope.last) scope.push(scopeTemplate);
@@ -80,6 +85,7 @@ module.exports = (input, allTokens) => {
           break;
       }
     });
-    resolve(run);
+    if (highlight) resolve(highlighted)
+    else resolve(run);
   });
 }

@@ -23,8 +23,11 @@ const functions = {
   }
 }
 
-compiler.compile(`{set;x;{math;1+1}}
+let code = `{set;x;{math;1+1}}
 {note: this will not show up}
 yay x is {get;x}
 {choose;this;that;the other thing}
-Search for One Punch Man: {http;post;https://qeeqle.guscaplan.me;0.title;"query": "one punch man"}`, functions).then(console.log);
+Search for One Punch Man: {http;post;https://qeeqle.guscaplan.me;0.title;"query": "one punch man"}`
+
+compiler.highlight(code).then(console.log);
+compiler.compile(code, functions).then(console.log);

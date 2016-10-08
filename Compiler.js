@@ -16,10 +16,10 @@ module.exports = (run, functions = {}) => {
     'lower': t => t.toLowerCase(),
     'upper': t => t.toUpperCase(),
     'length': t => t.length,
-    'note': () => {},
-    'l': () => '{',
-    'r': () => '}',
-    'semi': () => ';'
+    'note': '',
+    'l': '{',
+    'r': '}',
+    'semi': ';'
   }
   Object.keys(builtin).forEach(k => {
     if (k in functions) throw new Error(`"${k}" is a reserved function name`)
@@ -41,11 +41,16 @@ module.exports = (run, functions = {}) => {
         i.compiled = '';
         return;
       }
-      let compiled = functions[i.run.function](...i.run.args);
-      if (compiled instanceof Promise) {
-        i.compiled = ohwait(compiled);
-      } else {
+      let compiled = functions[i.run.function];
+      if (typeof compiled === 'string') {
         i.compiled = compiled;
+      } else {
+        compiled = compiled(...i.run.args);
+        if (compiled instanceof Promise) {
+          i.compiled = ohwait(compiled);
+        } else {
+          i.compiled = compiled;
+        }
       }
     });
     let compiled = run.filter(e => !e.called).map(e => e.compiled).join('').trim();

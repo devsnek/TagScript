@@ -4,6 +4,13 @@ const superagent = require('superagent');
 let compiler = new TagScript();
 
 const functions = {
+  // a simple replacement
+  'fight': '(ง\'̀-\'́)ง',
+
+  // a simple function
+  'join': (joiner, ...args) => args.join(joiner),
+
+  // an asyncronous example
   'http': (method, url, json, body = {}) => {
     return new Promise((resolve, reject) => {
       if (!(method in superagent)) resolve('');
@@ -27,7 +34,8 @@ let code = `{set;x;{math;1+1}}
 {note: this will not show up}
 yay x is {get;x}
 {choose;this;that;the other thing}
-Search for One Punch Man: {http;post;https://qeeqle.guscaplan.me;0.title;"query": "one punch man"}`
+{join;{fight};hello;how are you;are you good?}
+Search for One Punch Man: {http;post;https://qeeqle.guscaplan.me;0.title;"query": "one punch man"}`;
 
 compiler.highlight(code).then(console.log);
 compiler.compile(code, functions).then(console.log);

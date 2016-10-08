@@ -1,26 +1,16 @@
 const ohsync = require('asyncawait/async');
 const ohwait = require('asyncawait/await');
-const Parser = require('expr-eval').Parser;
 
 module.exports = (run, functions = {}) => {
   let runtimeArgs = {};
-  const builtin = {
+  const needed = {
     'get': i => runtimeArgs[i],
     'set': (i, x) => {
       runtimeArgs[i] = x;
       return;
-    },
-    'math': (...args) => Parser.evaluate(args.join('')),
-    'choose': (...args) => args[Math.floor(Math.random() * args.length)],
-    'range': (min, max) => Math.floor(Math.random() * parseInt(max)) + parseInt(min),
-    'lower': t => t.toLowerCase(),
-    'upper': t => t.toUpperCase(),
-    'length': t => t.length,
-    'note': '',
-    'l': '{',
-    'r': '}',
-    'semi': ';'
+    }
   }
+  const builtin = Object.assign(require('./builtin.js'), needed)
   Object.keys(builtin).forEach(k => {
     if (k in functions) throw new Error(`"${k}" is a reserved function name`)
   })
@@ -47,7 +37,11 @@ module.exports = (run, functions = {}) => {
       } else {
         compiled = compiled(...i.run.args);
         if (compiled instanceof Promise) {
-          i.compiled = ohwait(compiled);
+          try {
+            i.compiled = ohwait(compiled);
+          } catch (err) {
+            i.compiled = '';
+          }
         } else {
           i.compiled = compiled;
         }

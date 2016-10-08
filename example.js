@@ -13,11 +13,11 @@ const functions = {
   // an asyncronous example
   'http': (method, url, json, body = {}) => {
     return new Promise((resolve, reject) => {
-      if (!(method in superagent)) resolve('');
+      if (!(method in superagent)) reject('invalid method');
       superagent[method](url)
       .send(JSON.parse(`{${body}}`))
       .end((err, res) => {
-        if (err) resolve('');
+        if (err) reject(err);
         if (json && json !== 'null') {
           let props = json.split('.');
           let value = res.body;

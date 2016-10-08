@@ -1,0 +1,13 @@
+{
+  "name": "tagscript",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Gus Caplan <me@guscaplan.me>",
+  "license": "MIT",
+  "dependencies": {
+    "asyncawait": "^1.0.6",
+    "chevrotain": "^0.17.0",
+    "expr-eval": "^0.10.1"
+  }
+}

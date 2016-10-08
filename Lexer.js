@@ -46,7 +46,7 @@ module.exports = (input, allTokens, highlight) => {
     }
 
     tokens.forEach(token => {
-      highlighted += chalk[allTokens[token.constructor.name].COLOR](token.image);
+      if (highlight) highlighted += chalk[allTokens[token.constructor.name].COLOR](token.image);
       switch (token.constructor.name) {
         case 'FunctionOpen':
           if (!scope.last) scope.push(scopeTemplate);

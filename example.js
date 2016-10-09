@@ -35,7 +35,8 @@ let code = `{set;x;{math;1+1}}
 yay x is {get;x}
 {choose;this;that;the other thing}
 {join;{fight};hello;how are you;are you good?}
-Search for One Punch Man: {http;post;https://qeeqle.guscaplan.me;0.title;"query": "one punch man"}`;
+Search for One Punch Man: {http;post;https://qeeqle.guscaplan.me;0.title;"query": "one punch man"}
+M{randstr;jT;1}{randstr;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_-.;{range;55;60}}`;
 
 compiler.highlight(code).then(console.log);
 compiler.compile(code, functions).then(console.log);

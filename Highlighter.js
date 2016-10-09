@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const colors = require('./config.json').colors;
 
 module.exports = tokens => {
   let highlighted = '';
@@ -25,7 +26,7 @@ module.exports = tokens => {
       switch (token.constructor.name) {
         case 'FunctionOpen':
           if (!scope.last) scope.push(scopeTemplate);
-          hilite(token.image, 'blue');
+          hilite(token.image, colors.FunctionBrace);
           switch (scope.last.next) {
             case 'args':
               scope.push(scopeTemplate('function'));
@@ -36,30 +37,30 @@ module.exports = tokens => {
           }
           break;
         case 'FunctionClose':
-          hilite(token.image, 'blue');
+          hilite(token.image, colors.FunctionBrace);
           prepare(scope.last, 0, (scope.length > 2));
           scope.splice(scope.length - 1, 1);
           break;
         case 'ArgumentSeperator':
-          hilite(token.image, 'yellow');
+          hilite(token.image, colors.ArgumentSeperator);
           break;
         case 'Identifier':
           if (!scope.last) {
-            hilite(token.image, 'white');
+            hilite(token.image, colors.BareIdentifier);
             return prepareBare(token.image);
           }
           switch (scope.last.next) {
             case 'function':
-              hilite(token.image, 'red');
+              hilite(token.image, colors.FunctionName);
               scope.last.function = token.image;
               scope.last.next = 'args';
               break;
             case 'args':
-              hilite(token.image, 'green');
+              hilite(token.image, colors.Identifier);
               scope.last.args.push(token.image);
               break;
             default:
-              hilite(token.image, 'white');
+              hilite(token.image, colors.BareIdentifier);
               prepareBare(token.image);
               break;
           }

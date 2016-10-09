@@ -1,0 +1,9 @@
+{
+  "colors": {
+    "FunctionBrace": "blue",
+    "FunctionName": "red",
+    "ArgumentSeperator": "yellow",
+    "BareIdentifier": "white",
+    "Identifier": "green"
+  }
+}

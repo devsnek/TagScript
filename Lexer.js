@@ -70,7 +70,7 @@ module.exports = (input, allTokens, highlight) => {
           scope.splice(scope.length - 1, 1);
           break;
         case 'ArgumentSeperator':
-          hilite(token.image, 'cyan');
+          hilite(token.image, 'yellow');
           break;
         case 'Identifier':
           if (!scope.last) {

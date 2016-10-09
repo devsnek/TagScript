@@ -11,9 +11,11 @@ module.exports = (run, functions = {}) => {
     }
   }
   const builtin = Object.assign(require('./builtin.js'), needed)
+
   Object.keys(builtin).forEach(k => {
     if (k in functions) throw new Error(`"${k}" is a reserved function name`)
-  })
+  });
+
   functions = Object.assign(builtin, functions);
 
   return ohsync(() => {

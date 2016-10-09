@@ -2,20 +2,19 @@ const chevrotain = require('chevrotain');
 const Compile = require('./Compiler');
 const Lexer = require('./Lexer');
 
-const extendToken = (name, find, color) => {
+const extendToken = (name, find) => {
   let token = chevrotain.extendToken(name, find);
   token.STRING = token.PATTERN.toString().slice(1, -1);
-  token.COLOR = color;
   return token;
 };
 
 class Compiler {
   constructor () {
     this.tokens = {
-      FunctionOpen: extendToken('FunctionOpen', /{/, 'blue'),
-      FunctionClose: extendToken('FunctionClose', /}/, 'blue'),
-      ArgumentSeperator: extendToken('ArgumentSeperator', /;/, 'yellow'),
-      Identifier: extendToken('Identifier', /([\u0020-\u003A]|[\u003C-\u007A]|[\u007E-\uFFFFF]|\u007C|[\r\n\v])+/i, 'green')
+      FunctionOpen: extendToken('FunctionOpen', /{/),
+      FunctionClose: extendToken('FunctionClose', /}/),
+      ArgumentSeperator: extendToken('ArgumentSeperator', /;/),
+      Identifier: extendToken('Identifier', /([\u0020-\u003A]|[\u003C-\u007A]|[\u007E-\uFFFFF]|\u007C|[\r\n\v])+/i)
     };
   }
 

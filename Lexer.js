@@ -1,5 +1,4 @@
 const chevrotain = require('chevrotain');
-const chalk = require('chalk');
 
 Object.defineProperty(Array.prototype, 'last', { // eslint-disable-line
   get () {
@@ -25,7 +24,6 @@ module.exports = (input, allTokens, highlight) => {
     let lexed = tokenize(input);
     let tokens = lexed.tokens;
 
-    let highlighted = '';
     let scope = [];
     let run = [];
     let lastEX = 0;
@@ -45,15 +43,10 @@ module.exports = (input, allTokens, highlight) => {
       return {'function': null, next: next, args: []}
     }
 
-    const hilite = (text, color) => {
-      if (highlight) highlighted += chalk[color](text);
-    }
-
     tokens.forEach(token => {
       switch (token.constructor.name) {
         case 'FunctionOpen':
           if (!scope.last) scope.push(scopeTemplate);
-          hilite(token.image, 'blue');
           switch (scope.last.next) {
             case 'args':
               scope.last.args.push(`EX_${lastEX}`);
@@ -65,30 +58,24 @@ module.exports = (input, allTokens, highlight) => {
           }
           break;
         case 'FunctionClose':
-          hilite(token.image, 'blue');
           prepare(scope.last, lastEX++, (scope.length > 2));
           scope.splice(scope.length - 1, 1);
           break;
         case 'ArgumentSeperator':
-          hilite(token.image, 'yellow');
           break;
         case 'Identifier':
           if (!scope.last) {
-            hilite(token.image, 'white');
             return prepareBare(token.image);
           }
           switch (scope.last.next) {
             case 'function':
-              hilite(token.image, 'red');
               scope.last.function = token.image;
               scope.last.next = 'args';
               break;
             case 'args':
-              hilite(token.image, 'green');
               scope.last.args.push(token.image);
               break;
             default:
-              hilite(token.image, 'white');
               prepareBare(token.image);
               break;
           }
@@ -97,7 +84,9 @@ module.exports = (input, allTokens, highlight) => {
           break;
       }
     });
-    if (highlight) resolve(highlighted);
-    else resolve(run);
+    resolve({
+      run: run,
+      raw: tokens
+    });
   });
 }

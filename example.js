@@ -39,3 +39,11 @@ Search for One Punch Man: {http;post;https://qeeqle.guscaplan.me;0.title;"query"
 
 compiler.highlight(code).then(console.log);
 compiler.compile(code, functions).then(console.log);
+
+// OR
+// if you want more control, you can lex, then pass the lexed stuff manually, possibly
+// modifying some things
+//
+// compiler.lex(code).then(lexed => {
+//   compiler.compile(lexed.run, functions).then(console.log);
+// })

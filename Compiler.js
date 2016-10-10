@@ -16,7 +16,7 @@ module.exports = (run, functions = {}) => {
     if (Object.keys(functions).includes(k)) throw new Error(`"${k}" is a reserved function name`)
   });
 
-  functions = Object.assign(builtin, functions);
+  functions = Object.assign(functions, builtin);
 
   return ohsync(() => {
     run.forEach(i => {

@@ -26,6 +26,8 @@ class Compiler {
    * Runs the lexer on the input and returns json output for the compiler
    * @param {string} input The string of TagScript to be lexed.
    * @returns {Object} output Object containing information for the compiler
+   * @example
+   * compiler.lex('{math;1+1}').then(console.log) // logs json data from the lexer
    */
   lex (input) {
     return Lexer(input, this.tokens);
@@ -35,6 +37,8 @@ class Compiler {
    * Runs a highlighter on the input and returns an ANSI formatted string.
    * @param {string} input The string of TagScript to be highlighted.
    * @returns {string} output An ANSI formatted string.
+   * @example
+   * compiler.highlight('{math;1+2}').then(console.log) // logs ANSI highlighted
    */
   highlight (input) {
     return new Promise((resolve, reject) => {
@@ -49,6 +53,8 @@ class Compiler {
    * @param {string|object} input Input in the form of a string or an object from the lexer.
    * @param {object} functions Functions to pass as executable items.
    * @returns {string} output The compiled TagScript in the form of a string.
+   * @example
+   * compiler.compile('{math;1+1}').then(console.log) // logs '2'
    */
   compile (input, functions = {}) {
     if (typeof input === 'string') {

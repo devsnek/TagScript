@@ -3,17 +3,17 @@ const ohwait = require('asyncawait/await');
 
 module.exports = (run, functions = {}) => {
   let runtimeArgs = {};
-  const needed = {
+  const internal = {
     'get': i => runtimeArgs[i],
     'set': (i, x) => {
       runtimeArgs[i] = x;
       return;
     }
   }
-  const builtin = Object.assign(require('./builtin.js'), needed)
+  const builtin = Object.assign(require('./builtin.js'), internal)
 
   Object.keys(builtin).forEach(k => {
-    if (k in functions) throw new Error(`"${k}" is a reserved function name`)
+    if (Object.keys(functions).includes(k)) throw new Error(`"${k}" is a reserved function name`)
   });
 
   functions = Object.assign(builtin, functions);

@@ -12,7 +12,7 @@
     "expr-eval": "^0.10.1"
   },
   "devDependencies": {
-    "jsdoc": "^3.4.2",
-    "minami": "^1.1.1"
+    "docdash": "^0.4.0",
+    "jsdoc": "^3.4.2"
   }
 }

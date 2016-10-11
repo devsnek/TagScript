@@ -36,6 +36,8 @@ module.exports = (run, functions = {}) => {
       let compiled = functions[i.run.function];
       if (typeof compiled === 'string') {
         i.compiled = compiled;
+      } else if (typeof compiled === 'object') {
+        i.compiled = JSON.stringify(compiled);
       } else {
         compiled = compiled(...i.run.args);
         if (compiled instanceof Promise) {

@@ -1,4 +1,4 @@
-const TagScript = require('./index');
+const TagScript = require('./src/index');
 const superagent = require('superagent');
 
 let compiler = new TagScript();
@@ -11,19 +11,19 @@ const functions = {
   'join': (joiner, ...args) => args.join(joiner),
 
   // an asyncronous example
-  'http': (method, url, json, body = {}) => {
+  'http': (method, url, body = {}) => {
     return new Promise((resolve, reject) => {
       if (!(method in superagent)) reject('invalid method');
       superagent[method](url)
       .send(JSON.parse(`{${body}}`))
       .end((err, res) => {
         if (err) reject(err);
-        if (json && json !== 'null') {
-          let props = json.split('.');
-          let value = res.body;
-          for (const prop of props) value = value[prop];
-          resolve(JSON.stringify(value));
-        }
+        // if (json && json !== 'null') {
+        //   let props = json.split('.');
+        //   let value = res.body;
+        //   for (const prop of props) value = value[prop];
+        //   resolve(JSON.stringify(value));
+        // }
         resolve(res.text);
       })
     });
@@ -35,7 +35,7 @@ let code = `{set;x;{math;1+1}}
 yay x is {get;x}
 {choose;this;that;the other thing}
 {join;{fight};hello;how are you;are you good?}
-Search for One Punch Man: {http;post;https://qeeqle.guscaplan.me;0.title;"query": "one punch man"}
+Search for One Punch Man: {object;{http;post;https://qeeqle.guscaplan.me;"query": "one punch man"};0.title}
 M{randstr;jT;1}{randstr;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_-.;{range;55;60}}`;
 
 compiler.highlight(code).then(console.log);

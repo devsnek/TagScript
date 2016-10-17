@@ -1,9 +1,24 @@
 {
   "colors": {
-    "FunctionBrace": "blue",
-    "FunctionName": "red",
-    "ArgumentSeperator": "yellow",
-    "BareIdentifier": "white",
-    "Identifier": "green"
+    "FunctionBrace": {
+        "ansi": "blue",
+        "hex": "#268BD2"
+      },
+    "FunctionName": {
+      "ansi": "red",
+      "hex": "#DC322F"
+    },
+    "ArgumentSeperator": {
+      "ansi": "yellow",
+      "hex": "#E0BF45"
+    },
+    "BareIdentifier": {
+      "ansi": "white",
+      "hex": "#FFF"
+    },
+    "Identifier": {
+      "ansi": "green",
+      "hex": "#53893e"
+    }
   }
 }

@@ -1,12 +1,16 @@
 const chalk = require('chalk');
 const colors = require('./config.json').colors;
 
-module.exports = tokens => {
+module.exports = (tokens, html = false) => {
   let highlighted = '';
   let scope = [];
 
   const hilite = (text, color) => {
-    highlighted += chalk[color](text);
+    if (html) {
+      highlighted += `<span style="color:${color.hex}">${text}</span>`;
+    } else {
+      highlighted += chalk[color.ansi](text);
+    }
   }
 
   const prepare = (scoped, ex, called = false) => {

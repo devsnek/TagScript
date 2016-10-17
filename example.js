@@ -31,7 +31,7 @@ const functions = {
 }
 
 let code = `{set;x;{math;1+1}}
-{note: this will not show up}
+{note;this will not show up}
 yay x is {get;x}
 {choose;this;that;the other thing}
 {join;{fight};hello;how are you;are you good?}

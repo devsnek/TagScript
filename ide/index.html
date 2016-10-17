@@ -4,19 +4,26 @@
 <link rel="stylesheet" href="codemirror-material.css">
 </head>
 <style>
-  .CodeMirror { font-size: 125% !important }
-  .cm-brace { color: #268BD2 !important }
+  .CodeMirror {
+    font-size: 125% !important;
+    width: 75%;
+  }
+  .cm-brace { color: #268BD2 !important; }
+  .cm-comment.cm-matchingbrace {
+    text-decoration: none;
+    color: #546E7A !important;
+  }
   .cm-matchingbrace {
     color: #8acfff !important;
     text-decoration: underline;
   }
-  .cm-function { color: #DC322F !important }
-  .cm-semi { color: #E0BF45 !important }
-  .cm-argument { color: #79d655 !important }
-  .cm-string { color: #CFD8DC !important }
+  .cm-function { color: #DC322F !important; }
+  .cm-semi { color: #E0BF45 !important; }
+  .cm-argument { color: #79d655 !important; }
+  .cm-string { color: #CFD8DC !important; }
 </style>
 <body>
-<textarea id="ide"></textarea>
+<textarea id="ide">{note: have fun!}</textarea>
 <script src="codemirror.js"></script>
 <script src="mode-simple.js"></script>
 <script src="matchBrackets.js"></script>
@@ -29,7 +36,7 @@ CodeMirror.defineSimpleMode("tagscript", {
   ],
   comment: [
     {regex: /.*?\}/, token: 'comment', next: 'start'},
-    {regex: /.*/, token: 'comment'}
+    {regex: /.*/, token: 'comment'},
   ],
   'function': [
     {regex: /[^{};]+/, token: 'function', next: 'outerTag'}
@@ -64,9 +71,9 @@ var editor = CodeMirror.fromTextArea(document.querySelector('#ide'), {
     words: [
       {text: 'math', displayText: '{math;operators}'}
     ]
-  }
+  },
+  lineWrapping: true
 });
-editor.setOption('theme', 'material');
 </script>
 </body>
 </html>

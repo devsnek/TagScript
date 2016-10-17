@@ -1,5 +1,5 @@
-const async = require('asyncawait/async');
-const await = require('asyncawait/await');
+const ohsync = require('asyncawait/async');
+const ohwait = require('asyncawait/await');
 
 module.exports = (run, functions = {}) => {
   let runtimeArgs = {};
@@ -18,7 +18,7 @@ module.exports = (run, functions = {}) => {
 
   functions = Object.assign(functions, builtin);
 
-  return (async(() => {
+  return (ohsync(() => {
     run.forEach(i => {
       if (i.run.function === null) return;
       i.run.args = i.run.args.map(arg => {
@@ -42,7 +42,7 @@ module.exports = (run, functions = {}) => {
         compiled = compiled(...i.run.args);
         if (compiled instanceof Promise) {
           try {
-            i.compiled = await(compiled);
+            i.compiled = ohwait(compiled);
           } catch (err) {
             i.compiled = '';
           }

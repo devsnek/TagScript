@@ -1,7 +1,8 @@
 <html>
 <head>
-<link rel="stylesheet" href="codemirror.css">
-<link rel="stylesheet" href="codemirror-material.css">
+<link rel="stylesheet" href="codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="codemirror/theme/material.css">
+<link rel="stylesheet" href="codemirror/addon/hint/show-hint.css">
 </head>
 <style>
   .CodeMirror {
@@ -30,9 +31,13 @@
 {note: this is a comment}
 {function;arg;arg}
 </textarea>
-<script src="codemirror.js"></script>
-<script src="mode-simple.js"></script>
-<script src="matchBrackets.js"></script>
+<script src="codemirror/lib/codemirror.js"></script>
+<script src="codemirror/mode/javascript/javascript.js"></script>
+<script src="codemirror/addon/mode/simple.js"></script>
+<script src="codemirror/addon/edit/matchbrackets.js"></script>
+<script src="codemirror/addon/edit/matchtags.js"></script>
+<script src="codemirror/addon/hint/show-hint.js"></script>
+<script src="codemirror/addon/hint/tagscript-hint.js"></script>
 <script src="bundle.js"></script>
 <script>
 CodeMirror.defineSimpleMode("tagscript", {
@@ -75,10 +80,19 @@ var editor = CodeMirror.fromTextArea(document.querySelector('#ide'), {
   matchBrackets: true,
   hintOptions: {
     words: [
-      {text: 'math', displayText: '{math;operators}'}
+      {text: 'math', displayText: '{math;operators}'},
+      {text: 'note', displayText: '{note:text}'},
+      {text: 'choose', displayText: '{choose;option1;option2;...}'},
+      {text: 'randstr', displayText: '{randstr;chars;length}'},
+      {text: 'range', displayText: '{range;min;max}'},
+      {text: 'lower', displayText: '{lower;text}'},
+      {text: 'upper', displayText: '{upper;text}'}
     ]
   },
   lineWrapping: true
+});
+editor.on("inputRead", function (editor, change) {
+  if (change.text[0] == '{') editor.showHint();
 });
 </script>
 </body>

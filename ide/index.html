@@ -21,11 +21,14 @@
   .cm-semi { color: #E0BF45 !important; }
   .cm-argument { color: #79d655 !important; }
   .cm-string { color: #CFD8DC !important; }
+  .CodeMirror-line {
+    padding-left: 1em !important;
+  }
 </style>
 <body>
 <textarea id="ide">
-  {note: this is a comment}
-  {function;arg;arg}
+{note: this is a comment}
+{function;arg;arg}
 </textarea>
 <script src="codemirror.js"></script>
 <script src="mode-simple.js"></script>

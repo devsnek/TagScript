@@ -1,5 +1,11 @@
 const chevrotain = require('chevrotain');
 
+if (!Object.values) {
+  Object.values = (o) => {
+    return Object.keys(o).map(k => o[k]);
+  }
+}
+
 Object.defineProperty(Array.prototype, 'last', { // eslint-disable-line
   get () {
     return this[this.length - 1];

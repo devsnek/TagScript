@@ -36,7 +36,8 @@ yay x is {get;x}
 {choose;this;that;the other thing}
 {join;{fight};hello;how are you;are you good?}
 Search for One Punch Man: {object;{http;post;https://qeeqle.guscaplan.me;"query": "one punch man"};0.title}
-M{randstr;jT;1}{randstr;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_-.;{range;55;60}}`;
+M{randstr;jT;1}{randstr;qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_-.;{range;55;60}}
+{{{a}}}`;
 
 compiler.highlight(code).then(console.log);
 compiler.compile(code, functions).then(console.log);

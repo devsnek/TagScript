@@ -1,8 +1,9 @@
 const Parser = require('expr-eval').Parser;
 
 module.exports = {
-  'object': (json, selector) => {
-    let value = JSON.parse(json);
+  'object': (obj, selector) => {
+    if (typeof obj === 'string') obj = JSON.parse(json);
+    let value = obj;
     for (const prop of selector.split('.')) value = value[prop];
     return value;
   },
